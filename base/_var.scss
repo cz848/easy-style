@@ -1,33 +1,25 @@
-﻿//exbase初始化变量文件，此为初始化全局变量，请不要在此文件中给变量赋值，如需修改请在项目scss文件中覆盖
+//初始化变量文件，此为初始化全局变量，请不要在此文件中给变量赋值，如需修改请在项目scss文件中覆盖
 
-//default platform
+//default platform support: sc,pc,mb,adr,ios,adr2,adr4,ios5
 $default-platform : SC !default;
 
-//====grid system
-//grid columns
-$default-grid-columns : 24 !default;
-//grid width
-$default-grid-width : 30px !default;
-//grid margin
-$default-grid-margin : 10px !default;
-//grid outer width
-$default-grid-outer-width : $default-grid-width + $default-grid-margin!default;
-//page width
-$default-container-width : $default-grid-columns * $default-grid-outer-width - $default-grid-margin !default;
-
 //========跨浏览器初始化,定义是否进行跨浏览器支持
-$ex-support-for-mozilla   : true;  //FireFox
-$ex-support-for-original-webkit-gradients : true; //safari or chrome old version
-$ex-support-for-webkit    : true;  //Webkit
-$ex-support-for-opera     : true;  //Opera
-$ex-support-for-microsoft : true;  //IE
-$ex-support-for-ie6       : true;  //IE6
-$ex-support-for-ie7       : true;  //IE7
-$ex-support-for-ie8       : true;  //IE8
-$ex-support-for-ie9       : true;  //IE9
-$ex-support-for-khtml     : false;  //other use khtml
-$ex-support-for-svg       : false; //svg
-$ex-support-for-pie       : false; //css3 pie
+$ex-support-for-mozilla   : true !default;  //FireFox
+$ex-support-for-webkit    : true !default;  //Webkit
+$ex-support-for-owg       : true !default;  //safari or chrome old version, or android 2.3.x, for original-webkit-gradients
+$ex-support-for-webkit533 : true !default;  //Webkit533, for android 2.3.x
+$ex-support-for-opera     : false !default; //Opera
+$ex-support-for-microsoft : true !default;  //IE
+$ex-support-for-ie6       : true !default;  //IE6
+$ex-support-for-ie7       : true !default;  //IE7
+$ex-support-for-ie8       : true !default;  //IE8
+$ex-support-for-ie9       : true !default;  //IE9
+$ex-support-for-ie10      : true !default;  //IE10
+$ex-support-for-ie11      : true !default;  //IE11
+$ex-support-for-ie12      : true !default;  //IE12
+$ex-support-for-khtml     : false !default; //other use khtml
+$ex-support-for-svg       : false !default; //svg
+$ex-support-for-pie       : false !default; //css3 pie
 
 //色彩值
 //灰度值
@@ -47,7 +39,6 @@ $gc: #CCCCCC;
 $gd: #DDDDDD;
 $ge: #EEEEEE;
 $gf: #FFFFFF;
-
 //RGB相同色值
 $_03: #030303;
 $_36: #363636;
@@ -79,7 +70,9 @@ $f5 : #F5F5F5;
 $f6 : #F6F6F6;
 $f9 : #F9F9F9;
 $fc : #FCFCFC;
-//以下为简写的三位，请各位补充
+$fe : #FEFEFE;
+//三位简写色值
+$f30 : #FF3300;
 $f60 : #FF6600;
 $ff9 : #FFFF99;
 $ffc : #FFFFCC;
@@ -95,69 +88,80 @@ $_06c: #0066CC;
 $_369: #336699;
 $_36c: #3366CC;
 $_6cc: #66CCCC;
+$_690: #669900;
 $_69c: #6699CC;
 $_900: #909090;
 $_930: #993300;
-$ffc : #FFFFCC;
-$f30 : #FF3300;
 $_7b0: #77BB00;
 
 
 //==========border 默认值
-$default-border-width     : 1px;
-$default-border-style     : solid;
-$default-border-color     : $gc;
-$default-border           : $default-border-width $default-border-style $default-border-color;
-$default-border-radius    : 3px;
+$default-border-width     : 1px !default;
+$default-border-style     : solid !default;
+$default-border-color     : $gc !default;
+$default-border           : $default-border-width $default-border-style $default-border-color !default;
+$default-border-radius    : 3px !default;
 
 //==========box shadow默认值
-$default-box-shadow          : 1px 1px 1px $gc;
-$default-box-shadow-h-offset : 0;
-$default-box-shadow-v-offset : 0;
-$default-box-shadow-blur     : 5px;
-$default-box-shadow-color    : $gc;
-$default-box-shadow-spread   : false;
-$default-box-shadow-inset    : false;
+$default-box-shadow          : 1px 1px 1px $gc !default;
+$default-box-shadow-h-offset : 0 !default;
+$default-box-shadow-v-offset : 0 !default;
+$default-box-shadow-blur     : 5px !default;
+$default-box-shadow-color    : $gc !default;
+$default-box-shadow-spread   : false !default;
+$default-box-shadow-inset    : false !default;
 
 //==========box默认值
-$default-overflow    : hidden;
-$default-box-size    : 100%;
-$default-padding     : 1px;
-$default-margin      : 1px;
-$default-clear       : both;
-$default-width       : 100%;
-$default-position    : relative;
-$default-direct      : left;
-$default-direction   : top right bottom left;
-$default-line-height : 1.5;
+$default-overflow    : hidden !default;
+$default-box-size    : 100% !default;
+$default-padding     : 1px !default;
+$default-margin      : 1px !default;
+$default-clear       : both !default;
+$default-width       : 100% !default;
+$default-position    : relative !default;
+$default-direct      : left !default;
+$default-direction   : top right bottom left !default;
+$default-line-height : 1.5 !default;
+$default-background  : $ge !default;
 
 //==========form默认值
 $default-text-class : text !default;
 $default-form-class : form !default;
 
 //==========font属性
-$default-font-size       : 12px;
-$default-line-height     : 1.5;
-$default-font-family     : Tahoma, Helvetica, Arial, STXihei, SimSun, sans-serif;
-$default-body-font       : #{$default-font-size}/#{$default-line-height} $default-font-family;
-$default-hx-font         : Microsoft YaHei, STHeiti, sans-serif;
-$default-color           : $g3;
-$default-link-color      : blue;
-$default-hover-color     : adjust-color($default-link-color, $blue:-10);
+$default-font-size-base  : 12px !default;
+$default-font-size       : 100% !default;
+$default-line-height     : 1.5 !default;
+$default-line-height-base: $default-font-size-base * $default-line-height !default;
+$default-font-family     : Lucida Grande, Lucida Sans Unicode, Tahoma, Helvetica, Arial, Hiragino Sans GB, sans-serif !default; // 为同时兼容xp和mac的字体效果，去除STXihei,SimSun
+$default-ie7-font-family : Tahoma, Arial, SimSun, sans-serif !default; //vista, xp下ie6/7下默认字体
+$default-hx-font-family  : Microsoft YaHei, STHeiti, sans-serif !default;
+$default-body-font       : #{$default-font-size-base}/#{$default-line-height} $default-font-family !default;
+$default-color           : $g3 !default;
+$default-link-color      : blue !default;
+$default-hover-color     : adjust-color($default-link-color, $blue:-10) !default;
 
-$default-text-align      : center;
-$default-text-decoration : none;
-$default-text-indent     : 0;
-$default-white-space     : nowrap;
-$default-text-transform  : none;
-$default-letter-spacing  : normal;
-$default-word-spacing    : normal;
+$default-text-align      : center !default;
+$default-text-decoration : none !default;
+$default-text-indent     : 0 !default;
+$default-white-space     : nowrap !default;
+$default-text-transform  : none !default;
+$default-letter-spacing  : normal !default;
+$default-word-spacing    : normal !default;
 
-$default-deg     : 90deg;
-$default-time    : 500ms;
-$default-eff     : ease-in;
-$default-pro     : width;
+$default-scale   : 1 !default;
+$default-deg     : 90deg !default;
+$default-time    : 500ms !default;
+$default-eff     : ease-in !default;
+$default-pro     : all !default;
 
-$default-item-class : item;
-$default-box-sizing : border-box;
+$default-item-class : item !default;
+$default-box-sizing : border-box !default;
+
+//====grid system
+$default-grid-columns     : 24 !default;
+$default-grid-col         : 30px !default;
+$default-grid-gutter      : 10px !default;
+$default-grid-span        : $default-grid-col + $default-grid-gutter !default;
+$default-container-width  : $default-grid-columns * $default-grid-span - $default-grid-gutter !default;
 

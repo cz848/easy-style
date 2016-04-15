@@ -1,16 +1,25 @@
-﻿@import "base/mixin";
-@import "base/mixin/normal";
-@import "mobile/fx";
-//==use mobile base
+﻿//==use mobile base
 $default-platform : MB;
 
-//==phone screen width
-$phone-width : 320px !default;
+$ex-support-for-mozilla   : true;  //FireFox
+$ex-support-for-webkit    : true;  //Webkit
+$ex-support-for-owg       : true;  //safari or chrome old version
+$ex-support-for-webkit533 : true;  //Webkit533, for android 2.3.x
+$ex-support-for-opera     : false; //Opera
+$ex-support-for-microsoft : false; //IE
+$ex-support-for-ie6       : false; //IE6
+$ex-support-for-ie7       : false; //IE7
+$ex-support-for-ie8       : false; //IE8
+$ex-support-for-ie9       : false; //IE9
+$ex-support-for-ie10      : false; //IE10
+$ex-support-for-ie11      : false; //IE11
+
+@import "base/mixin";
+@import "base/mixin/normal";
+@import "mobile/fx";
 
 //==default page color
-$main-color    : #8F4F30 !default;
-$aid-color     : #8F4F30 !default;
-$dotting-colot : #8F4F30 !default;
+// ...color: #8F4F30;
 
 @mixin add-to-home(){
     //Main container
@@ -66,12 +75,11 @@ $dotting-colot : #8F4F30 !default;
             height:14px; line-height:10px;
             text-align:center;
             text-indent:1px;
-            font-size:14px;
+            font-size:13px;
             -webkit-border-radius:7px;
             background:rgba(0,0,0,0.12);
             color:#707070;
             -webkit-box-shadow:0 1px 0 #fff;
-            font-size:13px;
         }
         //The '+' icon, displayed only on iOS < 4.2
         .plus {

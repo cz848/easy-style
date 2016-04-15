@@ -1,4 +1,4 @@
-﻿@import "utilities";
+
 
 //@descrip: 页面视图相关mixin
 
@@ -7,9 +7,6 @@
 //= @param: $margin:外边距，默认为0 auto;
 //= @param: $class:是否带有class名，为true时默认命名container，并且可扩展;
 @mixin container($width: $default-container-width, $margin: 0, $class:false){
-    @if typeof($margin) == number {
-        $margin: $margin auto;
-    }
     @if $class {
         @if $class == true {
             $class: container;
@@ -27,12 +24,12 @@
 
 //= 页面列表类元素first one
 @mixin first($class:first, $direct:left){
-	@include list-one($class, $direct);
+    @include list-one($class, $direct);
 }
 
 //= 页面列表类元素last one
 @mixin last($class:last, $direct:right){
-	@include list-one($class, $direct);
+    @include list-one($class, $direct);
 }
 
 //= 跨浏览器的inline-block方式，只有在块元素用于inline-block时才需要hack。
@@ -114,6 +111,9 @@
         #{$max}width: $width;
     }
     @if $height {
+        @if $height == true {
+            $height: $width;
+        }
         #{$max}height: $height;
     }
     @if $hack{
@@ -174,7 +174,7 @@
     @if chk($background) {
         @include background($background);
     }
-    @if $overflow != false {
+    @if $overflow {
         @include overflow($overflow);
     }
 }
@@ -187,7 +187,7 @@
 }
 
 //= 矩形/盒模型属性，按顺序生成为display,position,left/top/right/bottom,z-index,background,opacity,float,width,height,line-height,padding,margin,border,border-radius,box-shadow
-@mixin rect($width:false, $height:false, $padding: false, $margin: false, $float:false, $line:false, $border: false, $background:false, $display: false, $overflow:false,$position:false, $z-index: false, $opacity:false, $radius: false, $shadow:false) {
+@mixin rect($width:false, $height:false, $padding: false, $margin: false, $float:false, $line:false, $border: false, $background:false, $display: false, $overflow:false,$position:false, $z-index: false, $opacity:false, $clear:false, $radius: false, $shadow:false) {
     @if $display {
         @include display($display);
     }
@@ -195,7 +195,7 @@
         @include position($position);
     }
     @if typeof($z-index) == number {
-    	z-index: $z-index;
+        z-index: $z-index;
     }
     @if $background {
         @include background($background);
@@ -253,5 +253,25 @@
     }
     @if $shadow {
         @include box-shadow($shadow);
+    }
+    @if $clear {
+        @include clear($clear);
+    }
+}
+
+//= 滤镜实现灰度效果，暂不兼容ff
+@mixin grayscale($value:100%) {
+    @if fix(webkit) {
+        -webkit-filter: grayscale($value);
+    }
+    @if fix(moz) {
+        -moz-filter: grayscale($value);
+    }
+    @if fix(ms) {
+        // filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); //标准写法
+        filter:Gray; //简写
+        @if fix(ie7) {
+            *zoom:1;
+        }
     }
 }

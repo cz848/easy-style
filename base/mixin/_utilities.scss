@@ -1,15 +1,12 @@
-﻿@import "../function";
+@import "../function";
 
 //@descrip: 工具性mixin，一般不做外部调用
 
 //= CSS3 跨浏览器工具函数
 //= @param: $property:css3属性;
 //= @param: $value:属性值;
-//= @param: 是否需支持以下浏览器:$official 原生, $moz firefox, $webkit, opera, $ms 微软ie9-10, $khtml
+//= @param: 是否需支持以下浏览器:$official 原生, $moz firefox, $webkit chrome and safari, $o opera, $ms 微软IE, $khtml KDE
 @mixin cross-browser($property, $value, $official: true,$moz: $ex-support-for-mozilla, $webkit: $ex-support-for-webkit, $o: $ex-support-for-opera, $ms: $ex-support-for-microsoft, $khtml: $ex-support-for-khtml) {
-    @if $official {
-        #{$property}: $value;
-    }
     @if $webkit and fix(webkit) {
         -webkit-#{$property}: $value;
     }
@@ -17,15 +14,18 @@
         -moz-#{$property}: $value;
     }
     @if fix(pc) {
-        @if $o and fix(o) {
-            -o-#{$property}: $value;
+        @if $khtml and fix(khtml) {
+            -khtml-#{$property}: $value;
         }
         @if $ms and fix(ie) {
             -ms-#{$property}: $value;
         }
-        @if $khtml and fix(khtml) {
-            -khtml-#{$property}: $value;
+        @if $o and fix(o) {
+            -o-#{$property}: $value;
         }
+    }
+    @if $official {
+        #{$property}: $value;
     }
 }
 
@@ -61,6 +61,9 @@
     }
     @each $v in owg webkit moz svg o ms {
         @if fix($v) and prefixed(-#{$v}, $image) {
+            @if $property == 'mask-image' {
+                $property: -#{v}#{$property};
+            }
             #{$property}: prefix(-#{$v}, $image);
             @if $v == svg {
                 background-size: 100%;
@@ -123,6 +126,17 @@
 @mixin set-patch($property:padding, $value:null, $merge:true, $hack:false) {
     @if chk($value) {
         @if $merge == true {
+            @if typeof($value) == list {
+                @if length($value) == 2 and n($value, 1) == n($value, 2) {
+                    $value: n($value, 1);
+                }
+                @else if length($value == 3) and n($value, 1) == n($value, 3) {
+                    $value: n($value, 1) n($value, 2);
+                }
+                @else if length($value == 4) and n($value, 1) == n($value, 3) and n($value, 2) == n($value, 4) {
+                    $value: n($value, 1) n($value, 2);
+                }
+            }
             #{property($property,null,$hack)}: $value;
         }@else {
             $property: property($property, $merge, $hack);
@@ -202,23 +216,23 @@
 
 //= 根据$pos的位置拼接$property和$which为属性,并等于$value值
 @mixin calc-value($value, $property:text, $which:align, $pos:0) {
-  	$prop: '';
-  	@if typeof($which) == list and typeof($value) == list {
-    	$i: 1;
-    	@each $w in $which {
-      		@if nth($value, $i) {
-        		@if $pos == 0 {
-          			$prop: splice($property $w);
-        		}@else {
-          			$prop: splice($w $property);
-        		}
-        		#{$prop}: nth($value, $i);
-      		}
-      		$i: $i + 1;
-    	}
-  	}@else if $value{
-    	#{splice($property $which)}: unquote($value);
-  	}
+    $prop: '';
+    @if typeof($which) == list and typeof($value) == list {
+        $i: 1;
+        @each $w in $which {
+            @if nth($value, $i) {
+                @if $pos == 0 {
+                    $prop: splice($property $w);
+                }@else {
+                    $prop: splice($w $property);
+                }
+                #{$prop}: nth($value, $i);
+            }
+            $i: $i + 1;
+        }
+    }@else if $value{
+        #{splice($property $which)}: unquote($value);
+    }
 }
 
 //= 用于列表类多种元素排列布局，最先/最后的元素
@@ -230,19 +244,18 @@
         }
     }@else {
         margin-#{$direct}:0;
-        @content;
     }
 }
 
 //= 设置文本各种基本属性
 @mixin text-base($type:align, $value:$default-text-align){
-  	@include calc-value($value, text, $type, 0);
+    @include calc-value($value, text, $type, 0);
 }
 
 //= 设置单词或字符间距
 @mixin text-spacing($type:letter, $value:$default-letter-spacing) {
-  	@if typeof($value) == list or $type == both {
-    	$type: letter word;
-  	}
-  	@include calc-value($value, spacing, $type, 1);
+    @if typeof($value) == list or $type == both {
+        $type: letter word;
+    }
+    @include calc-value($value, spacing, $type, 1);
 }
